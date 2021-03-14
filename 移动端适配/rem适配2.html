@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <script>
+    // 根据基准值来设置font-size
+    (function(designWidth){
+      const initRem = () => {
+        var curWidth = window.innerWidth;
+        document.querySelector('html').style.fontSize = 100 * (curWidth/designWidth) + 'px';
+      }
+      document.addEventListener('DOMContentLoaded',initRem);
+    })(375)
+  </script>
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <script>
+    (function(){var meta = document.querySelector('meta[name="viewport"]');
+    console.log(meta);
+    var scale = 1 / window.devicePixelRatio;
+    var content = `width=device-width,initial-scale=${scale},minimum-scale=${scale},maximum-scale=${scale},user-scalable=no`
+    if(!meta){
+      meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = content;
+      document.head.appendChild(meta);
+    }else{
+      meta.content = content;
+    }})()
+  </script>
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+    css像素xdpr=物理像素。
+    根据dpr，把css像素跟物理像素一比一还原。
+    css（具体显示像素）= css(当前像素)/缩放比
+    css像素还原物理像素(1:1) = css(当前像素) / dpr
+    配合百分比来解决兼容问题。因为这样每个设备的css像素都会进行一个物理像素还原。
+   -->
+</body>
+</html>

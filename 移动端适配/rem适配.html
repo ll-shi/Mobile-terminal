@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <style>
+    body{
+      margin:0;
+    }
+    div{
+      background-color: green;
+      float:left;
+      width:4rem;
+      height:4rem;
+    }
+  </style>
+  <script>
+    // 设置根节点font-size
+    (function(){
+      var html = document.querySelector('html');
+      var width = window.innerWidth;
+      console.log(width);
+      // 把屏幕分成16列。
+      var rem = width/16 + 'px';
+      html.style.fontSize = rem;
+    })()
+  </script>
+  <title>Document</title>
+</head>
+<body>
+  <!-- rem布局原理: 把所有设备分成相同的若干份，再计算元素宽度所占的份数。
+  （类似栅格布局）
+  1.元素适配的宽度 = 元素所占的列数 * 1列的宽度（1rem）
+  2.元素在设计稿里面的宽度（量出来）
+  3.列数：随便给
+  4.一列的宽度（算出来）= 屏幕的css像素/列数 = 1rem宽度。
+  5.元素实际占的列数。（算出来）
+    = 设计稿里面的宽/1列的宽度。
+  -->
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+</body>
+</html>

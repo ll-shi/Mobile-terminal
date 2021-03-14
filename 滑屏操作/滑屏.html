@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 修改视口 -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Document</title>
+  <style>
+    /* 样式重置 */
+    body{
+      font-family:helvetica;
+      margin:0;
+    }
+    body *{
+      -webkit-user-select:none;
+      -webkit-touch-callout:none;
+      -webkit-text-size-adjust:none;
+    }
+    a,input,button{
+      -webkit-tap-highlight-color:rgba(0,0,0,0);
+    }
+    input,button{
+      -webkit-appearance:none;
+      border-radius:0;
+    }
+    input::-webkit-input-placeholder{
+      color:#000;
+    }
+    input:focus::-webkit-input-placeholder{
+      color:#f00;
+    }
+    .wrapper{
+      width:100vw;
+      height:100vh;
+      border:5px solid skyblue;
+      box-sizing:border-box;
+      overflow:hidden;
+    }
+    .list li{
+      font-size:20px;
+      line-height:50px;
+    }
+    .list{
+      transition: .5s cubic-bezier(0.01, 0.23, 0.27, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <!-- 滑屏组件的作用
+  控制滑屏动画。
+  -->
+  <div class="wrapper">
+    <ul class="list">
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+      <li>亮哥贼帅</li>
+    </ul>
+  </div>
+  <script src="./js/transform.js"></script>
+  <script>
+    var wrapper = document.querySelector('.wrapper');
+    var list = document.querySelector('.list');
+    var startPointY = 0,//手指按下的坐标。
+        startTop = 0, //按下时元素的距离
+        movePointY = 0;//手指移动时的距离。
+    Transform(list)// 进行一个transform中函数的转换。
+    wrapper.addEventListener('touchstart',(ev)=>{
+      startPointY = ev.changedTouches[0].pageY;
+      startTop = list.translateY;
+    })
+    wrapper.addEventListener('touchstart',ev=>{
+      startPointY = ev.changedTouches[0].pageY;
+      startTop = list.translateY;
+    })
+    wrapper.addEventListener('touchmove',ev=>{
+      // 手指移动距离 = 当前手指位置 - 初始手指位置
+      movePointY = ev.changedTouches[0].pageY - startPointY;
+      // 设置translate，会通过transform函数进行转换。
+      list.translateY = movePointY + startTop;
+      ev.preventDefault();
+    })
+  </script>
+</body>
+</html>

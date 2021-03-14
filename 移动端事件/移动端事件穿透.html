@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      width:100px;
+      height:100px;
+      background-color: green;
+      opacity:0.5;
+      position:absolute;
+      left:0;
+      top:0;
+    }
+  </style>
+</head>
+<body>
+  <!-- 事件穿透介绍
+  主要应为移动端中click事件手指碰到然后离开就会触发。
+  出现场景：有两层重叠的元素，上面的元素有touch事件，触发后元素会消失，底部元素有会触发click事件（比如a标签）
+  解决方案：
+  1. 下层的元素不要使用能点击的标签，并且不要给他们添加事件。
+  2. 把上面元素的事件换成click事件。
+  3. 取消事件的默认动作的作用
+  - touchmove
+  1.阻止浏览器的滚动条
+  2.阻止了用户双指缩放
+  - touchstart
+  1. 阻止长按元素会弹出系统菜单
+  2. 阻止了图片文字被选中
+  3. 阻止鼠标事件
+  4. 阻止input框的输入功能。
+  5. 阻止图片文字被选中
+  6. 解决事件点透问题。
+  7. 解决通过viewport禁止用户缩放的功能。
+  -->
+  <a href="https://github.com/ll-shi">点我</a>
+  <div id="box"></div>
+  <script>
+    box.addEventListener("touchstart",ev=>{
+      box.style.display='none';
+      // 取消事件的默认动作
+      ev.preventDefault();
+    })
+  </script>
+</body>
+</html>

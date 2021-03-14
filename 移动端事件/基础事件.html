@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <style>
+    /* 样式重置 */
+    body{
+      font-family:helvetica;
+      margin:0;
+    }
+    body *{
+      /* 禁止用户选中文字 */
+      -webkit-user-select:none;
+      /* 禁止长按弹出系统菜单 */
+      -webkit-touch-callout:none;
+      /* 横竖屏或者浏览器设置文字大小 */
+      -webkit-text-size-adjust:100%;
+    }
+    a,input,button{
+      /* 解决安卓下点击出现边框，ios中a标签出现阴影 */
+      -webkit-tap-highlight-color:rgba(0,0,0,0);
+    }
+    button,input{
+      /* 解决ios情况下按钮圆角问题 */
+      -webkit-appearance:none;
+      border-radius:0;
+    }
+    /* 修改placeholder样式 */
+    input::-webkit-input-placeholder{
+      color:#000;
+    }
+    /* 修改点击样式 */
+    input:focus::-webkit-input-placeholder{
+      color:#f00;
+    }
+    div{
+      width:200px;
+      height:200px;
+      background-color: skyblue;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <!-- 移动端基础事件
+  touchstart ====> mousedown
+  touchmove ====> mousemove
+  touchend =====> mouseup
+  移动端事件最好使用事件监听函数来监听，不要使用on来添加
+  -pc端事件对比
+  mousemove 不需要鼠标按下就能触发，但是必须要在元素上才能触发
+  touchmove 必须手指按下才能触发，但是按下后不在元素上也能触发。
+  -触发顺序
+  touchstart->touchmove->touchend->mousedown->click->mouseup
+  所以pc端事件在移动端都会有一个300ms的延迟。
+  - touchstart对比clidck
+  touchstart为元素碰到手指就会触发
+  click为手指碰到元素并且抬起才会触发。
+  -->
+  <div id="box"></div>
+  <script>
+    box.addEventListener('touchstart',()=>{
+      console.log('手指按下去了');
+    })
+    box.addEventListener('touchmove',()=>{
+      console.log('手指滑动了');
+    })
+    box.addEventListener('touchend',()=>{
+      console.log('手指抬起来了');
+    })
+    box.addEventListener('click',()=>{
+      console.log('click事件触发了');
+    })
+  </script>
+</body>
+</html>

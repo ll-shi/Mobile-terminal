@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" id="view">
+  <title>Document</title>
+  <style>
+    body{
+      margin:0;
+    }
+    .mobile div{
+      width:93.75px;
+      height:100px;
+      float:left;
+    }
+    .mobile div:nth-child(1){
+      background-color:red;
+    }
+    .mobile div:nth-child(2){
+      background-color: green;
+    }
+    .mobile div:nth-child(3){
+      background-color: yellow;
+    }
+    .mobile div:nth-child(4){
+      background-color: skyblue;
+    }
+    .clearFloat::after{
+      content:'';
+      display:block;
+      clear:both;
+    }
+  </style>
+  <script>
+    (function(){
+    //获取初始css像素。
+    var clientWidth = document.documentElement.clientWidth;
+    var innerWidth = window.innerWidth;
+    var screenWidth = window.screen.width;
+    console.log('clientWidth:',clientWidth,'innerWidth:',innerWidth,'screenWidth:',screenWidth);
+    // 使用innerWidth，浏览器窗口的宽度。
+    var curWidth = innerWidth;
+    // 求缩放比例，375是原型图尺寸。
+    var targetWidth = 375;
+    var scale = curWidth/targetWidth;
+    console.log('缩放比例:',scale);
+    console.log(view.content);
+    view.content= `initial-scale=${scale},minimum-scale=${scale},maximum-scale=${scale},user-scalable=no`
+    })()
+  </script>
+</head>
+<body>
+  <!-- 适配方法
+  1. 百分比适配
+  2. viewport缩放
+  3. DPR缩放
+  4. rem适配
+  5. vw,vh适配
+  -->
+  <!-- viewport缩放 -->
+  <img src="./images/375.jpg" alt="">
+  <div class="mobile clearFloat">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</body>
+</html>

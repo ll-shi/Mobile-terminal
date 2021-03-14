@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      /* 安卓，ios默认字体不一样 */
+      font-family:helvetica;
+      margin:0;
+    }
+    body *{
+      /* 禁止用户选中文字 */
+      -webkit-user-select:none;
+      /* 禁止长按弹出系统菜单 */
+      -webkit-touch-callout:none;
+      /* 横竖屏或者浏览器设置可以改变字体大小 */
+      -webkit-text-size-adjust:100%;
+    }
+    /* 去除安卓按钮标签点击时出现边框，出去ios情况下a标签被点击时产生的半透明灰色背景 */
+    a,input,button{
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    /* 按钮在ios下都是圆角 */
+    button,input{
+      -webkit-appearance: none;
+      border-radius:0;
+    }
+    /* 修改placeholder样式 */
+    input::-webkit-input-placeholder{
+      color:#000;
+    }
+    /* 修改点击后的样式 */
+    input:focus::-webkit-input-placeholder{
+      color:#f00;
+    }
+ 
+  </style>
+</head>
+<body>
+  
+</body>
+</html>

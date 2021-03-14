@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 修改viewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Document</title>
+  <style>
+    /* 样式重置*/
+    body{
+      font-family:helvetica;
+      margin:0;
+    }
+    body *{
+      -webkit-user-select:none;
+      -webkit-touch-callout:none;
+      -webkit-text-size-adjust:100%;
+    }
+    a,input,button{
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    input,button{
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    input::-webkit-input-placeholder{
+      color: #000;
+    }
+    input:focus::-webkit-input-placeholder{
+      color:#f40;
+    }
+    .banner{
+      width:100vw;
+      overflow:hidden;
+      position:relative;
+    }
+    .wrapper{
+      width:300vw;
+      display:flex;
+      /* transition: .5s; */
+    }
+    .wrapper a{
+      width:100vw;
+    }
+    .wrapper a img{
+      width:100%;
+      vertical-align:middle;
+    }
+    .circle{
+      width:100vw;
+      position:absolute;
+      bottom:3vw;
+      display:flex;
+      justify-content:center;
+    }
+    .circle span{
+      width:4vw;
+      height:4vw;
+      border-radius:50%;
+      background-color: #ddd;
+      margin:0 1.5vw;
+    }
+    .circle span.active{
+      background-color:green;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <div class="wrapper">
+      <a href="#"><img src="./images/banner_01.jpg" alt=""></a>
+      <a href="#"><img src="./images/banner_02.jpg" alt=""></a>
+      <a href="#"><img src="./images/banner_03.jpg" alt=""></a>
+    </div>
+    <div class="circle">
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <script src="./js/transform.js"></script>
+  <script>
+    var banner = document.querySelector('.banner'),
+        wrapper = document.querySelector('.wrapper'),
+        spans = [...document.querySelectorAll('.circle span')],
+        imgWidth = banner.offsetWidth;// 图片的宽度
+    var startPointX = 0, // 手指初始位置
+        disPointX = 0, // 手指偏移量
+        startEleX = 0, // 开始元素的位置
+        cn = 0, // 当前图片的索引
+        ln = 0; // 上一张图片的索引
+    Transform(wrapper);
+    wrapper.innerHTML+=wrapper.innerHTML;
+    wrapper.style.width = imgWidth*wrapper.children.length + "px";
+    banner.addEventListener('touchstart',ev=>{
+      // 对手指偏移量进行一个重置
+      disPointX = 0;
+      startPointX = ev.changedTouches[0].pageX;
+      // 当前位置在第一张图片
+      !cn && (cn = wrapper.children.length/2);
+      // 当前位置在最后一张图片
+      cn === (wrapper.children.length - 1) && (cn = wrapper.children.length/2 - 1);
+      // 不取消第一张跟最后一张切换会被看出来
+      wrapper.style.transition = '';
+      // 改变wrapper
+      var distance = -imgWidth * cn;
+      wrapper.translateX = distance;
+      startEleX = distance;
+      ev.preventDefault(); 
+    })
+    banner.addEventListener('touchmove',ev=>{
+      // 手指偏移量
+      disPointX = ev.changedTouches[0].pageX - startPointX;
+      wrapper.translateX = startEleX + disPointX;
+    })
+    // 元素自己动
+    banner.addEventListener('touchend',ev=>{
+      // 如果移动距离不够就回弹，够就下一张图片。
+      // 设置回弹距离
+      let backWidth = imgWidth/8;
+      if(Math.abs(disPointX)>backWidth){
+        // 切换到下一张图片,判断左拖还是右拖
+        disPointX < 0 && cn++
+        disPointX > 0 && cn--
+      }
+      // 添加动画效果。
+      wrapper.style.transition = '.5s';
+      wrapper.translateX = -imgWidth * cn;
+      // 解决小圆点问题。
+      spans[ln].className = '';// 把上一个圆点样式重置
+      var nextIndex = cn%(wrapper.children.length/2)
+      // 对当前圆点加上active样式,利用周期
+      spans[nextIndex].className = 'active';
+      // 切换到下一张图片之后，更新ln的索引值
+      ln = nextIndex;
+    })
+  </script>
+</body>
+</html>

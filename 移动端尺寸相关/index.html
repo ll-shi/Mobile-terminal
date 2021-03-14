@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <!-- 禁止识别电话与邮箱 -->
+  <meta name="format-detection" content="telephone=no,email=no">
+  <!-- ios添加到主屏幕后的标题 -->
+  <meta name="apple-mobile-web-app-title" content="标题">
+  <!-- 放在桌面上的logo -->
+  <link rel="apple-touch-icon-precomposed" href="iphone_logo.png">
+  <title>Document</title>
+  <style>
+    div{
+      width:375px;
+      height:100px;
+      border:1px solid #f40;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+    1. ppi: 表示屏幕斜边像素/屏幕尺寸
+    2. 所以：ppi增加n倍，物理像素增加n^n,物理像素大小缩小1/n^n倍
+    3. 物理像素使用pt表示。
+    4. 浏览器开发者模式显示的是css像素。
+    5. dpr = 物理像素/逻辑像素(css像素)
+    6. 设备有两个像素，一个物理像素，一个逻辑像素（css像素）。
+
+    - viewport,通过meta标签来设置。
+    1.content 视口的相关设置。
+    2. width 视口的宽度 device-width(表示的是设备的逻辑像素，也就是css像素。)
+    3. user-scalable 是否允许用户进行页面缩放
+    4. initial-scale 原始缩放比
+    5. minimum-scale 最小缩放比
+    6. maximum-scale 最大缩放比
+    7. 写全是为了可以避免一些bug
+   --> 
+   <div>亮哥贼帅</div>
+</body>
+</html>
