@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1,maximum=1,user-scalable=no">
+  <title>Document</title>
+</head>
+<body>
+  <div class="wrapper">
+    <ul class="list"></ul>
+  </div>
+  <script src="./js/css.js"></script>
+  <script>
+    const ul = document.querySelector('.list');
+    let htmlStr=''
+    for(let i=0;i<30;i++){
+      htmlStr+='<li><a href="#">这是一个列表，亮哥贼帅</a></li>'
+    }
+    ul.innerHTML = htmlStr;
+    const swiper = ({wrap,dir='y',start,end}) => {
+      // 获取list
+      const scrollEle = wrap.children[0];
+      // start,end都是回调函数
+      let startPoint = {},//手指初始位置
+          startEle = {},//元素初始位置
+          distance = {},
+          targetEle = {};
+      wrap.addEventListener('touchstart',ev=>{
+        start && start.call(wrap,ev);
+        startPoint = {
+          x:ev.changedTouches[0].pageX,
+          y:ev.changedTouches[0].pageY
+        };
+        startEle = {
+          x:css(scrollEle,'translateX'),
+          y:css(scrollEle,'translateY')
+        }
+      });
+      wrap.addEventListener('touchmove',ev=>{
+         distance={
+           x:ev.changedTouches[0].pageX - startPoint.x,
+           y:ev.changedTouches[0].pageY - startPoint.y
+         };
+         targetEle = {
+           x:startEle.x+distance.x,
+           y:startEle.y+distance.y
+         }
+         css(scrollEle,{[`translate${dir}`]:targetEle.x});
+      })
+
+    }
+  </script>
+</body>
+</html>

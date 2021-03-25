@@ -85,8 +85,14 @@
   </div>
   <script src="./js/transform.js"></script>
   <script>
+    let dis;
     var wrapper = document.querySelector('.wrapper');
     var list = document.querySelector('.list');
+    let marginTop = +getComputedStyle(list).marginTop.split('px')[0];
+    let marginBottom = +getComputedStyle(list).marginBottom.split('px')[0];
+    let height = wrapper.clientHeight;
+    let listHeight = list.offsetHeight;
+    let bottomDis = - (listHeight - height + marginBottom + marginTop);
     var startPointY = 0,//手指按下的坐标。
         startTop = 0, //按下时元素的距离
         movePointY = 0;//手指移动时的距离。
@@ -100,11 +106,31 @@
       startTop = list.translateY;
     })
     wrapper.addEventListener('touchmove',ev=>{
+      let style = list.getBoundingClientRect();
+      let bottom = style.bottom;
       // 手指移动距离 = 当前手指位置 - 初始手指位置
       movePointY = ev.changedTouches[0].pageY - startPointY;
       // 设置translate，会通过transform函数进行转换。
-      list.translateY = movePointY + startTop;
+      dis = movePointY + startTop;
+      // console.log(bottom);
+      if(dis>=50){
+        dis = 50
+      }else if(dis <= bottomDis){
+        dis = bottomDis - 50;
+      }else{
+        dis = dis;
+      }
+      list.translateY = dis;
       ev.preventDefault();
+    })
+    wrapper.addEventListener('touchend',ev=>{
+      //top>50px设置上拉回弹效果
+      if(dis === 50){
+        list.translateY = 0;
+      }
+      if(dis === bottomDis -50){
+        list.translateY = bottomDis;
+      }
     })
   </script>
 </body>

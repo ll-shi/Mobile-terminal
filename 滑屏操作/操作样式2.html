@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <style>
+    body{
+      font-family:helvetica;
+      margin:0;
+    }
+    body *{
+      -webkit-user-select: nonoe;
+      -webkit-touch-callout: none;
+      -webkit-text-size-adjust: 100%;
+    }
+    a,input,button{
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    input,button{
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    input::-webkit-input-placeholder{
+      color:#000;
+    }
+    input:focus::-webkit-input-placeholder{
+      color:#f40;
+    }
+    .test{
+      width:50px;
+      height:50px;
+      background-color: skyblue;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div class="test"></div>
+  <script>
+    const css = (el,attr) => {
+      let transformAttrs = ['translateX','translateY','translateZ','rotate','rotateX','rotateY','rotateX','skew','skewX','skewY','scale','scaleX','scaleY',]
+   　　const type = obj => {
+        let typeStr = Object.prototype.toString.call(obj);
+        let type = typeStr.match(/\[object (.*)\]/)[1].toLowerCase();
+        return type;
+      };
+      // true表示获取，false表示设置
+      const isGet = type(attr) === 'object' ? false : true;
+      if(isGet){
+        // 判断是否获取c3属性
+        if(transformAttrs.includes(attr)){
+          return transform()
+        }else{
+          return parseFloat(getComputedStyle(el)[attr])
+        }
+      }else{
+        // 设置属性
+        for(let [key,value] of Object.entries(attr)){
+            el.style[key] = key === 'opacity' ? value : value + "px";
+        }
+        // 设置c3属性。会对上面进行一个覆盖。
+        transform(attr);
+        return true;
+      }
+      function transform(attr){
+        // 给元素加上一个属性transform用来保存c3属性。
+        if(!el.transform){
+          el.transform={};
+        }
+        if(isGet){
+          // 如果用户没有设置就给一个默认值。
+          if(!Object.keys(tranformAttrs).includes(attr)){
+            // 返回默认值
+            if(attr==='scale'){
+              return 1;
+            }else{
+              return 0;
+            }
+          }
+          return el.transform[attr];
+        }
+        let cssStr = '';
+        // 设置属性
+        for(let [k,v] of Object.entries(attr)){
+          if(transformAttrs.includes(k)){
+            el.transform[k] = v;
+          switch(k){
+            case 'rotate':
+            case 'rotateX':
+            case 'rotateY':
+            case 'rotateZ':
+            case 'skewX':
+            case 'skewY':
+            cssStr+= `${k}(${v}deg)`;
+            break;
+            case 'scale':
+            case 'scaleX':
+            case 'scaleY':
+            cssStr+=`${k}(${value})`;
+            break;
+            case 'translateX':
+            case 'translateY':
+            case 'translateZ':
+            cssStr+=`${k}(${v}px)`;
+            break;
+          }
+          }
+        }
+        el.style.transform = cssStr;
+      }
+    }
+    let test = document.querySelector('.test');
+    console.log(css(test,'width'))
+    console.log(css(test,{width:100}));
+    console.log(css(test,{height:150,translateX:50}));
+  </script>
+</body>
+</html>

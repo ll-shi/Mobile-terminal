@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=1">
+  <title>操作样式</title>
+  <style>
+    /* 样式重置 */
+    body{
+      font-family: helvetica;
+      margin:0;
+    }
+    body *{
+      -webkit-user-select:none;
+      -webkit-touch-callout:none;
+      -webkit-text-size-adjust: 100%;
+    }
+    a,input,button{
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    input,button{
+      -webkit-appearance:none;
+      border-radius:0;
+    }
+    input::-webkit-input-placeholder{
+      color:#000;
+    }
+    input:focus::-webkit-input-placeholder{
+      color:#f40;
+    }
+    .demo{
+      width:200px;
+      height:200px;
+      background-color:skyblue;
+      transform:rotateX(58deg) scale(0.5) translateY(100px);
+    }
+  </style>
+</head>
+<body>
+  <div class="demo"></div>
+  <script>
+    const css = (el,attr,value) => {
+      let getStyle = () => {
+        if(attr === 'transform'){
+          // 表示要获取css3属性,返回的是matrix()函数字符串。
+          value = getComputedStyle(el)[attr];
+        }else{
+          value = parseFloat(getComputedStyle(el)[attr]);
+        }
+      }
+      let setStyle = () => {
+        // 设置属性
+        if(attr === 'opacity'){
+          // 透明度不需要属性
+          el.style.opacity = value;
+        }else{
+          el.style[attr] = value + 'px';
+        }
+        value = true;
+      }
+      value ? setStyle() : getStyle();
+      return value;
+    }
+    const demo = document.querySelector('.demo');
+    console.log(css(demo,'width'));
+    console.log(css(demo,'transform'));
+  </script>
+</body>
+</html>
